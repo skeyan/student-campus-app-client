@@ -4,11 +4,14 @@
 
 .campuses-container {
     display: flex;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-wrap: wrap;
 }
 
 .campus {
     margin: 12px;
-    width: 18rem;
+    width: 16rem;
 }
 
 .campus-description {

@@ -10,13 +10,13 @@ const NewCampusView = (props) => {
                     <h1>Add Campus</h1>
                     <div className="mb-3">
                         <label className="form-label">Campus Name</label>
-                        <input name="name" className={"form-control " + (nameError == true ? "invalid-text" : "")} required onChange = {(e) => handleChange(e)}/>
+                        <input name="name" className={"form-control " + (nameError === true ? "invalid-text" : "")} required onChange = {(e) => handleChange(e)}/>
                         <div className="form-text">Required</div>
                         { nameError && <p className="required-text">Name cannot be blank.</p>}
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Campus Address</label>
-                        <input name="address" className={"form-control " + (addressError == true ? "invalid-text" : "")} required onChange = {(e) => handleChange(e)}/>
+                        <input name="address" className={"form-control " + (addressError === true ? "invalid-text" : "")} required onChange = {(e) => handleChange(e)}/>
                         <div className="form-text">Required</div>
                         { addressError && <p className="required-text">Address cannot be blank.</p>}
                     </div>

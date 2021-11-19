@@ -30,21 +30,21 @@ class NewCampusContainer extends Component {
         let nameError, addressError = false;
 
         // Name
-        if (event.target.name == "name") {
-            if (event.target.value.trim() == "") {
+        if (event.target.name === "name") {
+            if (event.target.value.trim() === "") {
                 nameError = true;
             }
-            if (this.state.address.trim() == "") {
+            if (this.state.address.trim() === "") {
                 addressError = true;
             }
         }
 
         // Address
-        if (event.target.name == "address") {
-            if (event.target.value.trim() == "") {
+        if (event.target.name === "address") {
+            if (event.target.value.trim() === "") {
                 addressError = true;
             }
-            if (this.state.name.trim() == "") {
+            if (this.state.name.trim() === "") {
                 nameError = true;
             }
         }
@@ -88,8 +88,8 @@ class NewCampusContainer extends Component {
             return;
         }
 
-        const shouldUseImageUrl = (this.state.imageUrl && this.state.imageUrl.trim() != "") ? true : false;
-        const shouldUseDescription = (this.state.description && this.state.description.trim() != "") ? true : false;
+        const shouldUseImageUrl = (this.state.imageUrl && this.state.imageUrl.trim() !== "") ? true : false;
+        const shouldUseDescription = (this.state.description && this.state.description.trim() !== "") ? true : false;
 
         let campus = {
             name: this.state.name,
@@ -118,8 +118,8 @@ class NewCampusContainer extends Component {
     }
 
     render() {
-        if(this.state.redirect) {
-            return (<Redirect to={`/campus/${this.state.redirectId}`}/>)
+        if (this.state.redirect) {
+            return (<Redirect to= {`/campus/${this.state.redirectId}`}/>)
         }
         return (
             <NewCampusView
