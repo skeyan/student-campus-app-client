@@ -67,7 +67,7 @@ class NewCampusContainer extends Component {
                     nameError = true;
                 break;
             default:
-                break;
+                return;
         }
 
         this.setState(prevstate => ({

@@ -8,3 +8,7 @@
     padding: 30px;
     width: 600px;
 }
+
+.required-text {
+    color: red;
+}
