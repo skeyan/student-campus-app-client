@@ -3,7 +3,7 @@ const axios = require('axios');
 
 // THUNKS
 
-//All campuses
+// All campuses
 export const fetchAllCampusesThunk = () => async (dispatch) => {
   try {
     let res = await axios.get(`/api/campuses`);
@@ -13,15 +13,19 @@ export const fetchAllCampusesThunk = () => async (dispatch) => {
   }
 };
 
-//Single campus
+export const addCampusThunk = (campus) => async (dispatch) => {
+  try {
+    let res = await axios.post(`/api/campuses`, campus);
+    dispatch(ac.addCampus(res.data));
+    return res.data;
+  } catch(err) {
+    console.error(err);
+  }
+};
+// TO-D0: Add thunks for edit campus & delete campus
+
+// Single campus
 export const fetchCampusThunk = (id) => async (dispatch) => {
-  // thunk creator would not an be async function 
-  // if using Promise.then:
-  // return axios
-  //   .get(`/api/campuses/${id}`)
-  //   .then((res) => res.data)
-  //   .then((campus) => dispatch(ac.fetchCampus(campus)))
-  //   .catch((err) => console.log(err));
   try {
     let res = await axios.get(`/api/campuses/${id}`);
     dispatch(ac.fetchCampus(res.data));
@@ -30,7 +34,7 @@ export const fetchCampusThunk = (id) => async (dispatch) => {
   }
 };
 
-//All students
+// All students
 export const fetchAllStudentsThunk = () => async (dispatch) => {
   try {
     let res = await axios.get(`/api/students`);
@@ -53,7 +57,7 @@ export const addStudentThunk = (student) => async (dispatch) => {
 export const deleteStudentThunk = studentId => async dispatch => {
   try {
     await axios.delete(`/api/students/${studentId}`);
-    //delete succesful so change state with dispatch
+    // Delete succesful so change state with dispatch
     dispatch(ac.deleteStudent(studentId));
   } catch(err) {
     console.error(err);
@@ -69,7 +73,7 @@ export const editStudentThunk = student => async dispatch => {
   }
 };
 
-//Single student
+// Single student
 export const fetchStudentThunk = id => async dispatch => {
   try {
     let res = await axios.get(`/api/students/${id}`);

@@ -1,6 +1,9 @@
+.container {
+    margin: 30px;
+}
+
 .campuses-container {
     display: flex;
-    margin: 30px;
 }
 
 .campus {
@@ -10,6 +13,10 @@
 
 .campus-description {
     font-style: italic;
+}
+
+.campus-add-button {
+    display: inline;
 }
 
 /* Boostrap4 Overrides */
