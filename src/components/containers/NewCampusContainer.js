@@ -9,27 +9,34 @@ class NewCampusContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
-          name: "",
-          imageUrl: "",
-          address: "",
-          description: "",
-          redirect: false,
-          redirectId: null,
-          nameError: null,
-          addressError: null,
-          validateError: null,
-          shouldDisplayError: false
-        };
+            name: "",
+            imageUrl: "",
+            address: "",
+            description: "",
+            redirect: false,
+            redirectId: null,
+            errors: {
+                name: null,
+                address: null,
+                validate: null,
+                shouldDisplayError: false
+        }};
     }
 
     /* Handle Focus for UX */
-    handleFocus = event => {
-        this.setState({
-            shouldDisplayError: true
-        });
+    handleFocus = () => {
+        this.setState(prevstate => ({
+            errors: {
+                ...prevstate.errors,
+                shouldDisplayError: true
+            }
+        }));
     }
 
     /* Validation */
+    /*
+    * The name and address fields are required.
+    */
     handleChange = event => {
         this.setState({
             [event.target.name]: event.target.value.trim()
@@ -58,10 +65,13 @@ class NewCampusContainer extends Component {
             }
         }
 
-        this.setState({
-            nameError: nameError,
-            addressError: addressError
-        });
+        this.setState(prevstate => ({
+            errors: {
+                ...prevstate.errors,
+                name: nameError,
+                address: addressError
+            }
+        }));
     }
 
     /* Submit New Campus Data */
@@ -74,18 +84,24 @@ class NewCampusContainer extends Component {
             addressError = true;
         }
         if (nameError || addressError) {
-            this.setState({
-                nameError: nameError,
-                addressError: addressError,
-                validateError: true
-            })
+            this.setState(prevstate => ({
+                errors: {
+                    ...prevstate.errors,
+                    name: nameError,
+                    address: addressError,
+                    validate: true
+                }
+            }))
             return false;
         }
         else {
-            this.setState({
-                nameError: nameError,
-                addressError: addressError
-            });
+            this.setState(prevstate => ({
+                errors: {
+                    ...prevstate.errors,
+                    name: nameError,
+                    address: addressError
+                }
+            }));
             return true;
         }
     }
@@ -93,7 +109,6 @@ class NewCampusContainer extends Component {
         event.preventDefault();
 
         if (!this.validateForm()) {
-            console.log("Validation failed.")
             return;
         }
 
@@ -114,10 +129,12 @@ class NewCampusContainer extends Component {
             description: "",
             imageUrl: "",
             address: "",
-            nameError: null,
-            addressError: null,
-            validateError: null,
-            shouldDisplayError: false,
+            errors: {
+                name: null,
+                address: null,
+                validate: null,
+                shouldDisplayError: false
+            },
             redirect: true,
             redirectId: newCampus.id
         });
@@ -136,10 +153,7 @@ class NewCampusContainer extends Component {
                 handleChange = {this.handleChange}
                 handleSubmit = {this.handleSubmit}
                 handleFocus = {this.handleFocus}
-                nameError = {this.state.nameError}
-                addressError = {this.state.addressError}
-                validateError = {this.state.validateError}
-                shouldDisplayError = {this.state.shouldDisplayError}
+                errors = {this.state.errors}
             />
         )
     }

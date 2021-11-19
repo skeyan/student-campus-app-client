@@ -1,7 +1,7 @@
 import "../styles/NewCampus.css";
 
 const NewCampusView = (props) => {
-    const {handleChange, handleSubmit, handleFocus, nameError, addressError, validateError, shouldDisplayError } = props;
+    const {handleChange, handleSubmit, handleFocus, errors } = props;
 
     return (
         <div className="new-campus-container">
@@ -11,7 +11,7 @@ const NewCampusView = (props) => {
                     <div className="mb-3">
                         <label className="form-control-label" for="name">Campus Name*</label>
                         <input name="name" required pattern=".*\S+.*" title="This field cannot be blank."
-                            className={"form-control " + (shouldDisplayError ? (nameError === false ? "is-valid" : "is-invalid") : "")}
+                            className={"form-control " + (errors.shouldDisplayError ? (errors.name === false ? "is-valid" : "is-invalid") : "")}
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
                         />
@@ -21,7 +21,7 @@ const NewCampusView = (props) => {
                     <div className="mb-3">
                         <label className="form-label">Campus Address*</label>
                         <input name="address" required pattern=".*\S+.*" title="This field cannot be blank."
-                            className={"form-control " + (shouldDisplayError ? (addressError === false ? "is-valid" : "is-invalid") : "")}
+                            className={"form-control " + (errors.shouldDisplayError ? (errors.address === false ? "is-valid" : "is-invalid") : "")}
                             onChange = {(e) => handleChange(e)}
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
@@ -38,7 +38,7 @@ const NewCampusView = (props) => {
                         <label className="form-label">Campus Description</label>
                         <input name="description" className="form-control" onChange = {(e) => handleChange(e)}/>
                     </div>
-                    { validateError && <p className="required-text">Invalid inputs, please fix errors.</p>}
+                    { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>}
                     <button type="submit" className="btn btn-primary">Add Campus</button>
                 </form>
             </div>
