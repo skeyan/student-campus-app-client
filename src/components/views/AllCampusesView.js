@@ -20,7 +20,7 @@ const AllCampusesView = (props) => {
               <h1 className="card-title">{campus.name}</h1>
             </Link>
             <p className="card-text">{campus.address}</p>
-            {campus.description && <p>{campus.description}</p>}
+            {campus.description && <p className="campus-description">{campus.description}</p>}
           </div>
         </div>
       ))}

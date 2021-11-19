@@ -1,7 +1,7 @@
 import * as at from './actionTypes';
 
 // ACTION CREATORS;
-/** needs to be an action creator
+/** There needs to be an action creator
  * for each action type
  */
 
@@ -13,7 +13,28 @@ export const fetchAllCampuses = (campuses) => {
   };
 };
 
-//Single campus
+export const addCampus = (campus) => {
+  return {
+    type: at.ADD_CAMPUS,
+    payload: campus,
+  };
+};
+
+export const deleteCampus = (campusId) => {
+  return {
+    type: at.DELETE_CAMPUS,
+    payload: campusId,
+  };
+};
+
+export const editCampus = (campus) => {
+  return {
+    type: at.EDIT_STUDENT,
+    payload: campus,
+  };
+};
+
+// Single campus
 export const fetchCampus = (campus) => {
   return {
     type: at.FETCH_CAMPUS,
@@ -21,7 +42,7 @@ export const fetchCampus = (campus) => {
   };
 };
 
-//All students
+// All students
 export const fetchAllStudents = (students) => {
   return {
     type: at.FETCH_ALL_STUDENTS,
@@ -43,7 +64,6 @@ export const deleteStudent = (studentId) => {
   };
 };
 
-
 export const editStudent = (student) => {
   return {
     type: at.EDIT_STUDENT,
@@ -51,7 +71,7 @@ export const editStudent = (student) => {
   };
 };
 
-//Single student
+// Single student
 export const fetchStudent = (student) => {
   return {
     type: at.FETCH_STUDENT,

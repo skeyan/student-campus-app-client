@@ -8,6 +8,10 @@
     width: 18rem;
 }
 
+.campus-description {
+    font-style: italic;
+}
+
 /* Boostrap4 Overrides */
 .card-title {
     font-size: 24px;
