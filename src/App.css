@@ -1,8 +1,8 @@
-.App {
-  background-color: #fcb6bb;
-  min-height: 100vh;
+@font-face {
+  font-family: 'Title';
+  src: url("fonts/KeepCalm-Medium.ttf");
 }
 
-.App-link {
-  color: #61dafb;
+.navbar-title {
+  font-family: 'Title';
 }
