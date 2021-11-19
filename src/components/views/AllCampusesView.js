@@ -6,9 +6,13 @@ import "../styles/AllCampuses.css";
 const AllCampusesView = (props) => {
   if (!props.allCampuses.length || props.allCampuses.length <= 0) {
     return (
-      <div className="campuses-container">
-        <Link to={`/newcampus`}>+ Add Campus</Link>
-        There are no campuses.
+      <div className="container">
+        <Link className="campus-add-button" to={`/newcampus`}>
+          <button type="button" className="btn btn-primary">+ Add Campus</button>
+        </Link>
+        <div className="campuses-container">
+          There are no campuses.
+        </div>
       </div>
     );
   }
@@ -16,7 +20,7 @@ const AllCampusesView = (props) => {
   return (
     <div className="container">
       <Link className="campus-add-button" to={`/newcampus`}>
-        <button type="button" class="btn btn-primary">+ Add Campus</button>
+        <button type="button" className="btn btn-primary">+ Add Campus</button>
       </Link>
       <div className="campuses-container">
         {props.allCampuses.map((campus) => (

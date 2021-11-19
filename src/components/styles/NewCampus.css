@@ -1,0 +1,19 @@
+.new-campus-container {
+    display: flex;
+    justify-content: center;
+}
+
+.add-campus-form-container {
+    margin: 30px;
+    padding: 30px;
+    width: 700px;
+}
+
+.required-text {
+    color: red;
+}
+
+.invalid-text {
+    border-color: red;
+    border-width: 1px;
+}
