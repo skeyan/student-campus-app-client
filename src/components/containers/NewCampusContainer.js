@@ -81,13 +81,15 @@ class NewCampusContainer extends Component {
 
     /* Validate Entire Form */
     validateForm() {
-        let nameError, addressError = false;
-        if (this.state.name.trim() === "") {
+        let nameError = false;
+        let addressError = false;
+
+        if (this.isBlank(this.state.name))
             nameError = true;
-        }
-        if (this.state.address.trim() === "") {
+
+        if (this.isBlank(this.state.address))
             addressError = true;
-        }
+
         if (nameError || addressError) {
             this.setState(prevstate => ({
                 errors: {
