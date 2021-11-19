@@ -6,10 +6,10 @@ const NewCampusView = (props) => {
     return (
         <div className="new-campus-container">
             <div className="add-campus-form-container border">
-                <form novalidate className="needs-validation" onSubmit= {(e) => handleSubmit(e)}>
+                <form noValidate className="needs-validation" onSubmit= {(e) => handleSubmit(e)}>
                     <h1>Add Campus</h1>
                     <div className="mb-3">
-                        <label className="form-control-label" for="name">Campus Name*</label>
+                        <label className="form-control-label" htmlFor="name">Campus Name*</label>
                         <input name="name" required pattern=".*\S+.*" title="This field cannot be blank."
                             className={"form-control " + (errors.shouldDisplayError ? (errors.name === false ? "is-valid" : "is-invalid") : "")}
                             onChange = {(e) => handleChange(e)}
@@ -19,10 +19,9 @@ const NewCampusView = (props) => {
                         <div className="invalid-feedback">This field is required.</div>
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">Campus Address*</label>
+                        <label className="form-control-label" htmlFor="address">Campus Address*</label>
                         <input name="address" required pattern=".*\S+.*" title="This field cannot be blank."
                             className={"form-control " + (errors.shouldDisplayError ? (errors.address === false ? "is-valid" : "is-invalid") : "")}
-                            onChange = {(e) => handleChange(e)}
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
                         />

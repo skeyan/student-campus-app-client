@@ -33,7 +33,14 @@ class NewCampusContainer extends Component {
         }));
     }
 
-    /* Validation */
+    /* Helper Function */
+    isBlank(input) {
+        if (input.trim() === "")
+            return true
+        return false
+    }
+
+    /* Input Validation */
     /*
     * The name and address fields are required.
     */
@@ -45,24 +52,22 @@ class NewCampusContainer extends Component {
         let nameError = false;
         let addressError = false;
 
-        // Name
-        if (event.target.name === "name") {
-            if (event.target.value.trim() === "") {
-                nameError = true;
-            }
-            if (this.state.address.trim() === "") {
-                addressError = true;
-            }
-        }
-
-        // Address
-        if (event.target.name === "address") {
-            if (event.target.value.trim() === "") {
-                addressError = true;
-            }
-            if (this.state.name.trim() === "") {
-                nameError = true;
-            }
+        switch(event.target.name) {
+            case "name":
+                if (this.isBlank(event.target.value)) {
+                    nameError = true;
+                }
+                if (this.isBlank(this.state.address))
+                    addressError = true;
+                break;
+            case "address":
+                if (this.isBlank(event.target.value))
+                    addressError = true;
+                if (this.isBlank(this.state.name))
+                    nameError = true;
+                break;
+            default:
+                break;
         }
 
         this.setState(prevstate => ({
@@ -74,7 +79,7 @@ class NewCampusContainer extends Component {
         }));
     }
 
-    /* Submit New Campus Data */
+    /* Validate Entire Form */
     validateForm() {
         let nameError, addressError = false;
         if (this.state.name.trim() === "") {
@@ -105,6 +110,8 @@ class NewCampusContainer extends Component {
             return true;
         }
     }
+
+    /* Submit Form */
     handleSubmit = async event => {
         event.preventDefault();
 
@@ -141,7 +148,7 @@ class NewCampusContainer extends Component {
     }
 
     componentWillUnmount() {
-        this.setState({redirect: false, redirectId: null});
+        this.setState({ redirect: false, redirectId: null });
     }
 
     render() {
@@ -159,6 +166,7 @@ class NewCampusContainer extends Component {
     }
 }
 
+/* Map Dispatch to Props to Utilize Functional Thunks */
 const mapDispatch = (dispatch) => {
     return({
         addCampus: (campus) => dispatch(addCampusThunk(campus))
