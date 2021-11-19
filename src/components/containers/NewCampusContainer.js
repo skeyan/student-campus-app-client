@@ -17,8 +17,16 @@ class NewCampusContainer extends Component {
           redirectId: null,
           nameError: null,
           addressError: null,
-          validateError: null
+          validateError: null,
+          shouldDisplayError: false
         };
+    }
+
+    /* Handle Focus for UX */
+    handleFocus = event => {
+        this.setState({
+            shouldDisplayError: true
+        });
     }
 
     /* Validation */
@@ -27,7 +35,8 @@ class NewCampusContainer extends Component {
             [event.target.name]: event.target.value.trim()
         });
 
-        let nameError, addressError = false;
+        let nameError = false;
+        let addressError = false;
 
         // Name
         if (event.target.name === "name") {
@@ -108,6 +117,7 @@ class NewCampusContainer extends Component {
             nameError: null,
             addressError: null,
             validateError: null,
+            shouldDisplayError: false,
             redirect: true,
             redirectId: newCampus.id
         });
@@ -125,9 +135,11 @@ class NewCampusContainer extends Component {
             <NewCampusView
                 handleChange = {this.handleChange}
                 handleSubmit = {this.handleSubmit}
+                handleFocus = {this.handleFocus}
                 nameError = {this.state.nameError}
                 addressError = {this.state.addressError}
                 validateError = {this.state.validateError}
+                shouldDisplayError = {this.state.shouldDisplayError}
             />
         )
     }

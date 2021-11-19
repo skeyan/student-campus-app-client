@@ -1,24 +1,33 @@
 import "../styles/NewCampus.css";
 
 const NewCampusView = (props) => {
-    const {handleChange, handleSubmit, nameError, addressError, validateError } = props;
+    const {handleChange, handleSubmit, handleFocus, nameError, addressError, validateError, shouldDisplayError } = props;
 
     return (
         <div className="new-campus-container">
             <div className="add-campus-form-container border">
-                <form onSubmit= {(e) => handleSubmit(e)}>
+                <form novalidate className="needs-validation" onSubmit= {(e) => handleSubmit(e)}>
                     <h1>Add Campus</h1>
                     <div className="mb-3">
-                        <label className="form-label">Campus Name</label>
-                        <input name="name" className={"form-control " + (nameError === true ? "invalid-text" : "")} required onChange = {(e) => handleChange(e)}/>
-                        <div className="form-text">Required</div>
-                        { nameError && <p className="required-text">Name cannot be blank.</p>}
+                        <label className="form-control-label" for="name">Campus Name*</label>
+                        <input name="name" required pattern=".*\S+.*" title="This field cannot be blank."
+                            className={"form-control " + (shouldDisplayError ? (nameError === false ? "is-valid" : "is-invalid") : "")}
+                            onChange = {(e) => handleChange(e)}
+                            onFocus = {(e) => handleFocus(e)}
+                        />
+                        <div className="valid-feedback">Looks good!</div>
+                        <div className="invalid-feedback">This field is required.</div>
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">Campus Address</label>
-                        <input name="address" className={"form-control " + (addressError === true ? "invalid-text" : "")} required onChange = {(e) => handleChange(e)}/>
-                        <div className="form-text">Required</div>
-                        { addressError && <p className="required-text">Address cannot be blank.</p>}
+                        <label className="form-label">Campus Address*</label>
+                        <input name="address" required pattern=".*\S+.*" title="This field cannot be blank."
+                            className={"form-control " + (shouldDisplayError ? (addressError === false ? "is-valid" : "is-invalid") : "")}
+                            onChange = {(e) => handleChange(e)}
+                            onChange = {(e) => handleChange(e)}
+                            onFocus = {(e) => handleFocus(e)}
+                        />
+                        <div className="valid-feedback">Looks good!</div>
+                        <div className="invalid-feedback">This field is required.</div>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Campus Image Url</label>

@@ -8,12 +8,3 @@
     padding: 30px;
     width: 600px;
 }
-
-.required-text {
-    color: red;
-}
-
-.invalid-text {
-    border-color: red;
-    border-width: 1px;
-}
