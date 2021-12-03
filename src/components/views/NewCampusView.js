@@ -30,12 +30,18 @@ const NewCampusView = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Campus Image Url</label>
-                        <input name="imageUrl" className="form-control" onChange = {(e) => handleChange(e)}/>
+                        <input name="imageUrl" className="form-control"
+                            onChange = {(e) => handleChange(e)}
+                            onFocus = {(e) => handleFocus(e)}
+                        />
                         <div className="form-text">eg. https://site.com/campus.png</div>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Campus Description</label>
-                        <input name="description" className="form-control" onChange = {(e) => handleChange(e)}/>
+                        <input name="description" className="form-control"
+                            onChange = {(e) => handleChange(e)}
+                            onFocus = {(e) => handleFocus(e)}
+                        />
                     </div>
                     { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>}
                     <button type="submit" className="btn btn-primary">Add Campus</button>

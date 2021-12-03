@@ -25,12 +25,15 @@ class NewCampusContainer extends Component {
 
     /* Handle Focus for UX */
     handleFocus = () => {
-        this.setState(prevstate => ({
-            errors: {
-                ...prevstate.errors,
-                shouldDisplayError: true
-            }
-        }));
+        if (!this.state.errors.shouldDisplayError) {
+            console.log("Not true");
+            this.setState(prevstate => ({
+                errors: {
+                    ...prevstate.errors,
+                    shouldDisplayError: true
+                }
+            }));
+        }
     }
 
     /* Helper Function */
