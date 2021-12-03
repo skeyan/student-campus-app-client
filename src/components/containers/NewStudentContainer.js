@@ -10,10 +10,10 @@ class NewStudentContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
-          firstname: "", 
-          lastname: "", 
-          campusId: null, 
-          redirect: false, 
+          firstname: "",
+          lastname: "",
+          campusId: null,
+          redirect: false,
           redirectId: null
         };
     }
@@ -32,14 +32,14 @@ class NewStudentContainer extends Component {
             lastname: this.state.lastname,
             campusId: this.state.campusId
         };
-        
+
         let newStudent = await this.props.addStudent(student);
 
         this.setState({
-          firstname: "", 
-          lastname: "", 
-          campusId: null, 
-          redirect: true, 
+          firstname: "",
+          lastname: "",
+          campusId: null,
+          redirect: true,
           redirectId: newStudent.id
         });
     }
@@ -53,9 +53,9 @@ class NewStudentContainer extends Component {
           return (<Redirect to={`/student/${this.state.redirectId}`}/>)
         }
         return (
-          <NewStudentView 
-            handleChange = {this.handleChange} 
-            handleSubmit={this.handleSubmit}      
+          <NewStudentView
+            handleChange = {this.handleChange}
+            handleSubmit={this.handleSubmit}
           />
         );
     }

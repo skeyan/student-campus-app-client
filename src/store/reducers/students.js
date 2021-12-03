@@ -1,6 +1,6 @@
 import * as at from "../actions/actionTypes";
 
-// REDUCER;
+// REDUCER
 const allStudents = (state=[], action) => {
   switch (action.type) {
     case at.FETCH_ALL_STUDENTS:
@@ -10,7 +10,7 @@ const allStudents = (state=[], action) => {
     case at.DELETE_STUDENT:
       return state.filter(student => student.id!==action.payload);
     case at.EDIT_STUDENT:
-      return state.map(student => { 
+      return state.map(student => {
         return (
           student.id===action.payload.id ? action.payload : student
         );
