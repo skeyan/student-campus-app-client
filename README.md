@@ -15,9 +15,9 @@ This repository deals with the CLIENT side of this application.
 **User Stories**   
 [Document Here](https://docs.google.com/document/d/1ioCrS7uzKSkH8d-L04xMeHsq5GbkiAfwPNyLUoqrb04/edit#).        
 As a user, I can:  
-- [ ] land on aesthetic homepage by default
-- [ ] navigate to view all campuses
-- [ ] add a new campus
+- [X] land on aesthetic homepage by default
+- [X] navigate to view all campuses
+- [X] add a new campus
 - [ ] delete a campus and related student info
 - [ ] edit a campus and related student info
 - [ ] navigate to view a single campus
