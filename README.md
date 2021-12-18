@@ -18,9 +18,10 @@ As a user, I can:
 - [X] land on aesthetic homepage by default
 - [X] navigate to view all campuses
 - [X] add a new campus
-- [ ] delete a campus and related student info
-- [ ] edit a campus and related student info
-- [ ] navigate to view a single campus
+- [X] delete a campus and related student info
+- [X] edit a campus and related student info
+- [X] navigate to view a single campus
+- [ ] navigate to view all students
 - [ ] navigate to view a single student
 - [ ] add a student
 - [ ] delete a student
