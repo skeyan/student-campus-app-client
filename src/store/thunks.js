@@ -24,7 +24,7 @@ export const addCampusThunk = (campus) => async (dispatch) => {
   }
 };
 
-export const deleteCampusThunk = campusId => async dispatch => {
+export const deleteCampusThunk = campusId => async (dispatch) => {
   try {
     await axios.delete(`/api/campuses/${campusId}`);
     // Delete succesful so change state with dispatch
@@ -34,7 +34,7 @@ export const deleteCampusThunk = campusId => async dispatch => {
   }
 };
 
-export const editCampusThunk = campus => async dispatch => {
+export const editCampusThunk = campus => async (dispatch) => {
   try {
     let updatedCampus = await axios.put(`/api/campuses/${campus.id}`, campus);
     dispatch(ac.editCampus(updatedCampus));
@@ -74,7 +74,7 @@ export const addStudentThunk = (student) => async (dispatch) => {
   }
 };
 
-export const deleteStudentThunk = studentId => async dispatch => {
+export const deleteStudentThunk = studentId => async (dispatch) => {
   try {
     await axios.delete(`/api/students/${studentId}`);
     // Delete succesful so change state with dispatch
@@ -84,7 +84,7 @@ export const deleteStudentThunk = studentId => async dispatch => {
   }
 };
 
-export const editStudentThunk = student => async dispatch => {
+export const editStudentThunk = student => async (dispatch) => {
   try {
     let updatedStudent = await axios.put(`/api/students/${student.id}`, student);
     dispatch(ac.editStudent(updatedStudent));
@@ -94,7 +94,7 @@ export const editStudentThunk = student => async dispatch => {
 };
 
 // Single student
-export const fetchStudentThunk = id => async dispatch => {
+export const fetchStudentThunk = id => async (dispatch) => {
   try {
     let res = await axios.get(`/api/students/${id}`);
     dispatch(ac.fetchStudent(res.data));
