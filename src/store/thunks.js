@@ -3,6 +3,7 @@ const axios = require('axios');
 
 // THUNKS
 
+/* CAMPUS THUNKS: */
 // All campuses
 export const fetchAllCampusesThunk = () => async (dispatch) => {
   try {
@@ -22,7 +23,25 @@ export const addCampusThunk = (campus) => async (dispatch) => {
     console.error(err);
   }
 };
-// TO-D0: Add thunks for edit campus & delete campus
+
+export const deleteCampusThunk = campusId => async dispatch => {
+  try {
+    await axios.delete(`/api/campuses/${campusId}`);
+    // Delete succesful so change state with dispatch
+    dispatch(ac.deleteCampus(campusId));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const editCampusThunk = campus => async dispatch => {
+  try {
+    let updatedCampus = await axios.put(`/api/campuses/${campus.id}`, campus);
+    dispatch(ac.editCampus(updatedCampus));
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 // Single campus
 export const fetchCampusThunk = (id) => async (dispatch) => {
@@ -34,6 +53,7 @@ export const fetchCampusThunk = (id) => async (dispatch) => {
   }
 };
 
+/* STUDENT THUNKS: */
 // All students
 export const fetchAllStudentsThunk = () => async (dispatch) => {
   try {
