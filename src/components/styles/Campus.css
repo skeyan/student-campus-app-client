@@ -2,10 +2,17 @@
     display: flex;
     justify-content: center;
 }
-
-.campus-edit-button {
-    display: inline;
+.campus-content-container{
+    margin: 30px;
+    padding: 30px;
+    width: 600px;
 }
-.campus-delete-button {
+.campus-nav-button {
     display: inline;
+    float: right;
+}
+.campus-img-top {
+    width: 100%;
+    height: 21vh;
+    object-fit: cover;
 }
