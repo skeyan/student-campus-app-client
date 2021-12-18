@@ -1,0 +1,11 @@
+.campus-container{
+    display: flex;
+    justify-content: center;
+}
+
+.campus-edit-button {
+    display: inline;
+}
+.campus-delete-button {
+    display: inline;
+}
