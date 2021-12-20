@@ -44,7 +44,7 @@ const EditCampusView = (props) => {
                         />
                     </div>
                     {errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>}
-                    <button type="submit" className="btn btn-primary">Add Campus</button>
+                    <button type="submit" className="btn btn-primary">Edit Campus</button>
                 </form>
             </div>
         </div>

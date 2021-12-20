@@ -2,8 +2,11 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import "../styles/AllCampuses.css";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const AllCampusesView = (props) => {
+
   if (!props.allCampuses.length || props.allCampuses.length <= 0) {
     return (
       <div className="container">
@@ -27,6 +30,9 @@ const AllCampusesView = (props) => {
           <div key={campus.id} className="card campus">
             <img src={campus.imageUrl} className="card-img-top" alt="campus"/>
             <div className="card-body">
+              <Button onClick={() => props.deleteCampus(campus.id)} className="campus-nav-button">
+                <DeleteIcon />
+              </Button>
               <Link to={`/campus/${campus.id}`}>
                 <h1 className="card-title">{campus.name}</h1>
               </Link>
