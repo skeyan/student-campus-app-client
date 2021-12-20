@@ -11,7 +11,7 @@ class StudentContainer extends Component {
 
   render() {
     return (
-      <StudentView 
+      <StudentView
         student={this.props.student}
       />
     );
