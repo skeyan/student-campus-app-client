@@ -63,30 +63,32 @@ class NewStudentContainer extends Component {
               if (this.isBlank(event.target.value)) {
                   firstnameError = true;
               }
+              if (this.isBlank(event.target.value)) {
+                  lastnameError = true;
+              }
               if (this.isBlank(this.state.email)) {
                   emailError = true;
               }
-              if (this.isBlank(event.target.value)) {
-                  lastnameError = true;
-              }
               break;
-            case "lastname":
-              if (this.isBlank(event.target.value)) {
-                  lastnameError = true;
-              }
-              if (this.isBlank(event.target.value)) {
-                  firstnameError = true;
-              }
-              if (this.isBlank(this.state.email))
-                  emailError = true;
-              break;
+          case "lastname":
+            if (this.isBlank(event.target.value)) {
+              firstnameError = true;
+            }
+            if (this.isBlank(event.target.value)) {
+                lastnameError = true;
+            }
+            if (this.isBlank(this.state.email))
+                emailError = true;
+            break;
           case "email":
               if (this.isBlank(event.target.value))
                   emailError = true;
-              if (this.isBlank(this.state.firstname))
-                  firstnameError = true;
-              if (this.isBlank(this.state.lastname))
+              if (this.isBlank(event.target.value)) {
                   lastnameError = true;
+              }
+              if (this.isBlank(event.target.value)) {
+                firstnameError = true;
+              }
               break;
           default:
               return;
@@ -97,7 +99,7 @@ class NewStudentContainer extends Component {
               ...prevstate.errors,
               firstname: firstnameError,
               lastname: lastnameError,
-              email: emailError
+              email: emailError,
           }
       }));
   }
@@ -135,7 +137,7 @@ class NewStudentContainer extends Component {
                   ...prevstate.errors,
                   firstname: firstnameError,
                   lastname: lastnameError,
-                  email: emailError
+                  email: emailError,
               }
           }));
           return true;
@@ -207,76 +209,3 @@ const mapDispatch = (dispatch) => {
 }
 
 export default connect(null, mapDispatch)(NewStudentContainer);
-
-// class NewStudentContainer extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//           firstname: "",
-//           lastname: "",
-//           campusId: null,
-//           imageUrl: "",
-//           email: "",
-//           gpa: "",
-//           redirect: false,
-//           redirectId: null
-//         };
-//     }
-
-//     handleChange = event => {
-//       this.setState({
-//         [event.target.name]: event.target.value
-//       });
-//     }
-
-//     handleSubmit = async event => {
-//         event.preventDefault();
-
-//         let student = {
-//             firstname: this.state.firstname,
-//             lastname: this.state.lastname,
-//             campusId: this.state.campusId,
-//             imageUrl: this.state.imageUrl,
-//             email: this.state.email,
-//             gpa: this.state.gpa,
-//         };
-
-//         let newStudent = await this.props.addStudent(student);
-//         console.log(newStudent);
-
-//         this.setState({
-//           firstname: "",
-//           lastname: "",
-//           campusId: null,
-//           imageUrl: "",
-//           email: "",
-//           gpa: null,
-//           redirect: true,
-//           redirectId: newStudent.id
-//         });
-//     }
-
-//     componentWillUnmount() {
-//         this.setState({redirect: false, redirectId: null});
-//     }
-
-//     render() {
-//         if(this.state.redirect) {
-//           return (<Redirect to={`/student/${this.state.redirectId}`}/>)
-//         }
-//         return (
-//           <NewStudentView
-//             handleChange = {this.handleChange}
-//             handleSubmit={this.handleSubmit}
-//           />
-//         );
-//     }
-// }
-
-// const mapDispatch = (dispatch) => {
-//     return({
-//         addStudent: (student) => dispatch(addStudentThunk(student)),
-//     })
-// }
-
-// export default connect(null, mapDispatch)(NewStudentContainer);

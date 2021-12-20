@@ -32,7 +32,7 @@ const AllStudentsView = (props) => {
               <DeleteIcon />
             </Button>
             <Link to={`/student/${student.id}`}>
-              <h1>{student.firstname + " " + student.lastname}</h1>
+              <h1 className="card-title">{student.firstname + " " + student.lastname}</h1>
             </Link>
             <p className="card-text">{student.email}</p>
             {student.gpa && <p className="student-gpa">{"GPA: " + student.gpa}</p>}
