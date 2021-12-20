@@ -1,0 +1,14 @@
+.new-student-container {
+    display: flex;
+    justify-content: center;
+}
+
+.add-student-form-container {
+    margin: 30px;
+    padding: 30px;
+    width: 600px;
+}
+
+.required-text {
+    color: red;
+}
