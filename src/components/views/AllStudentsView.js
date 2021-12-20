@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const AllStudentsView = (props) => {
-  const {students, deleteStudent} = props;
+  const {students} = props;
 
   if (!students.length) {
     return (
