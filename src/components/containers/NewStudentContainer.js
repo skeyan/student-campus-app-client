@@ -45,6 +45,10 @@ class NewStudentContainer extends Component {
       return false
   }
 
+  isValidEmailAddress(address) {
+    return ! address.match(/.+@.+/);
+  }
+
   /* Input Validation */
   /*
   * The first name, last name, and email fields are required.
@@ -63,7 +67,7 @@ class NewStudentContainer extends Component {
               if (this.isBlank(event.target.value)) {
                   firstnameError = true;
               }
-              if (this.isBlank(event.target.value)) {
+              if (this.isBlank(this.state.lastname)) {
                   lastnameError = true;
               }
               if (this.isBlank(this.state.email)) {
@@ -72,21 +76,21 @@ class NewStudentContainer extends Component {
               break;
           case "lastname":
             if (this.isBlank(event.target.value)) {
-              firstnameError = true;
-            }
-            if (this.isBlank(event.target.value)) {
                 lastnameError = true;
             }
+            if (this.isBlank(this.state.firstname)) {
+                firstnameError = true;
+              }
             if (this.isBlank(this.state.email))
                 emailError = true;
             break;
           case "email":
               if (this.isBlank(event.target.value))
                   emailError = true;
-              if (this.isBlank(event.target.value)) {
+              if (this.isBlank(this.state.lastname)) {
                   lastnameError = true;
               }
-              if (this.isBlank(event.target.value)) {
+              if (this.isBlank(this.state.firstname)) {
                 firstnameError = true;
               }
               break;
