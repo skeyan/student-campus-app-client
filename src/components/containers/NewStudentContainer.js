@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import NewStudentView from '../views/NewStudentView';
-import { addStudentThunk } from '../../store/thunks';
+import {fetchAllCampusesThunk, addStudentThunk } from '../../store/thunks';
 
 class NewStudentContainer extends Component {
+  componentDidMount() {
+    this.props.fetchAllCampuses();
+  }
+
   constructor(props){
       super(props);
       this.state = {
@@ -14,6 +18,7 @@ class NewStudentContainer extends Component {
           imageUrl: "",
           email: "",
           gpa: "",
+          campusId: -1,
           redirect: false,
           redirectId: null,
           errors: {
@@ -25,6 +30,7 @@ class NewStudentContainer extends Component {
               shouldDisplayError: false
       }};
   }
+
 
   /* Handle Focus for UX */
   handleFocus = () => {
@@ -43,6 +49,13 @@ class NewStudentContainer extends Component {
       if (input.trim() === "")
           return true
       return false
+  }
+
+  handleSelect = event => {
+    this.setState({
+      campusId: event.target.value
+    })
+    // console.log(event.target.value)
   }
 
   // isValidEmailAddress(address) {
@@ -163,6 +176,12 @@ class NewStudentContainer extends Component {
       if (!this.validateForm()) {
           return;
       }
+      
+      let actualCampusId = null;
+
+      if (this.state.campusId >= 0){
+          actualCampusId = this.state.campusId;
+      }
 
       const shouldUseImageUrl = (this.state.imageUrl && this.state.imageUrl.trim() !== "") ? true : false;
 
@@ -170,8 +189,8 @@ class NewStudentContainer extends Component {
           firstname: this.state.firstname,
           lastname: this.state.lastname,
           email: this.state.email,
-          gpa: this.state.gpa,
-          campusId: this.state.campusId,
+          gpa: parseFloat(this.state.gpa),
+          campusId: actualCampusId,
           ...(shouldUseImageUrl && { imageUrl: this.state.imageUrl }),
       }
 
@@ -210,17 +229,27 @@ class NewStudentContainer extends Component {
               handleChange = {this.handleChange}
               handleSubmit = {this.handleSubmit}
               handleFocus = {this.handleFocus}
+              handleSelect = {this.handleSelect}
               errors = {this.state.errors}
+              allCampuses = {this.props.allCampuses}
           />
+          
       )
   }
+}
+
+const mapState = (state) => {
+  return({
+    allCampuses: state.allCampuses
+  })
 }
 
 /* Map Dispatch to Props to Utilize Functional Thunks */
 const mapDispatch = (dispatch) => {
   return({
+      fetchAllCampuses: () => dispatch(fetchAllCampusesThunk()),
       addStudent: (student) => dispatch(addStudentThunk(student))
   })
 }
 
-export default connect(null, mapDispatch)(NewStudentContainer);
+export default connect(mapState, mapDispatch)(NewStudentContainer);

@@ -1,13 +1,16 @@
 import "../styles/NewStudent.css";
 import { useState } from 'react';
+import AllCampusesView from "./AllCampusesView";
 
 
 const NewStudentView = (props) => {
-  const {handleChange, handleSubmit, handleFocus, errors } = props;
-  // console.log(this.campuses)
-  // let optionItems = allCampuses.map((campus) =>
-  //       <option key={campus}>{campus}</option>
-  //   );
+  const {handleSelect, handleChange, handleSubmit, handleFocus, errors} = props;
+  let optionItems = props.allCampuses.map((campus) =>
+
+        <option key={campus.id} value={campus.id}>{campus.name}</option>
+    );
+  
+  console.log("options", optionItems)
 
   return (
 
@@ -48,9 +51,10 @@ const NewStudentView = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Campus ID</label>
-                        <select name="campuses" id="selectList">
-                        {/*   {optionItems} */}
-                        </select>
+                        <select name="campuses" id="selectList" onChange = {(e) => handleSelect(e)}>
+                          <option key="-1" value="-1">None</option>
+                          {optionItems}
+                       </select>
                         {/* <input name="campusId" className="form-control"
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
