@@ -26,7 +26,9 @@ const StudentView = (props) => {
       <div className="student-content-container">
       <img src={student.imageUrl} className="student-img-top" alt="student img" />
       <br></br>
-      <h2>{student.firstname + " " + student.lastname} is not enrolled at a campus</h2>
+      <h1>{student.firstname + " " + student.lastname} is not enrolled at a campus</h1>
+      <p>GPA: {student.gpa}</p>
+      <p>Email: {student.email}</p>
       <Link to={`/student/${student.id}/edit`} className="noCampus-student-nav-button">
           <Button onClick={() => editHelper(student)}>
             <EditIcon />
@@ -45,7 +47,7 @@ const StudentView = (props) => {
 
   return (
     <div className="student-container">
-      <div className=".student-content-container">
+      <div className="student-content-container">
       <img src={student.imageUrl} className="student-img-top" alt="student img" />
       <br></br>
       <Link to={"/students"} className="student-nav-button">
@@ -68,7 +70,7 @@ const StudentView = (props) => {
 
       <h1>{student.firstname+" " +student.lastname}</h1>
       <p>GPA: {student.gpa}</p>
-      <p>{student.email}</p>
+      <p>Email: {student.email}</p>
       <p>{student.firstname+" " +student.lastname+" is a student at "+ student.campus.name}</p>
 
 
