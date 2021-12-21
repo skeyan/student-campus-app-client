@@ -66,13 +66,13 @@ const NewStudentView = (props) => {
                         <div className="form-text">eg. https://site.com/student.png</div>
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">GPA</label>
+                        <label className="form-label">GPA (0.0 - 4.0)</label>
                         <input name="gpa" className="form-control"
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
                             />
                     </div>
-                    { errors.validate && <p className="required-text">Can leave this field empty or enter a value between 0.0 and 4.0.</p>}
+                    { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>}
                     <button type="submit" className="btn btn-primary">Add Student</button>
                 </form>
             </div>
