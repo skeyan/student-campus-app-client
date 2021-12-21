@@ -1,7 +1,16 @@
 import "../styles/NewStudent.css";
+import { useState } from 'react';
+import AllCampusesView from "./AllCampusesView";
+
 
 const NewStudentView = (props) => {
-  const {handleChange, handleSubmit, handleFocus, errors } = props;
+  const {handleSelect, handleChange, handleSubmit, handleFocus, errors} = props;
+  let optionItems = props.allCampuses.map((campus) =>
+
+        <option key={campus.id} value={campus.id}>{campus.name}</option>
+    );
+  
+  console.log("options", optionItems)
 
   return (
 
@@ -29,8 +38,9 @@ const NewStudentView = (props) => {
                         <div className="valid-feedback">Looks good!</div>
                         <div className="invalid-feedback">This field is required.</div>
                     </div>
+
                     <div className="mb-3">
-                        <label className="form-control-label" htmlFor="address">Email*</label>
+                        <label className="form-control-label" htmlFor="email">Email*</label>
                         <input name="email" required pattern=".*\S+.*" title="This field cannot be blank."
                             className={"form-control " + (errors.shouldDisplayError ? (errors.email === false ? "is-valid" : "is-invalid") : "")}
                             onChange = {(e) => handleChange(e)}
@@ -39,14 +49,18 @@ const NewStudentView = (props) => {
                         <div className="valid-feedback">Looks good!</div>
                         <div className="invalid-feedback">This field is required.</div>
                     </div>
-                    {/* <div className="mb-3">
-                    <label for="campuses">Campus Name</label>
-                    <select id="campuses" name="campusId">
-                      <option value="1">Hunter</option>
-                      <option value="2">MIT</option>
-                      <option value="3">Harvard</option>
-                    </select>
-                    </div> */}
+                    <div className="mb-3">
+                        <label className="form-label">Campus ID</label>
+                        <select name="campuses" id="selectList" onChange = {(e) => handleSelect(e)}>
+                          <option key="-1" value="-1">None</option>
+                          {optionItems}
+                       </select>
+                        {/* <input name="campusId" className="form-control"
+                            onChange = {(e) => handleChange(e)}
+                            onFocus = {(e) => handleFocus(e)}
+                        /> */}
+                    </div>
+                    {/* { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>} */}
                     <div className="mb-3">
                         <label className="form-label">Student Image Url</label>
                         <input name="imageUrl" className="form-control"
@@ -56,11 +70,11 @@ const NewStudentView = (props) => {
                         <div className="form-text">eg. https://site.com/student.png</div>
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">GPA</label>
+                        <label className="form-label">GPA (0.0 - 4.0)</label>
                         <input name="gpa" className="form-control"
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
-                        />
+                            />
                     </div>
                     { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>}
                     <button type="submit" className="btn btn-primary">Add Student</button>

@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import NewStudentView from '../views/NewStudentView';
-import { addStudentThunk } from '../../store/thunks';
+import {fetchAllCampusesThunk, addStudentThunk } from '../../store/thunks';
 
 class NewStudentContainer extends Component {
+  componentDidMount() {
+    this.props.fetchAllCampuses();
+  }
+
   constructor(props){
       super(props);
       this.state = {
@@ -14,6 +18,7 @@ class NewStudentContainer extends Component {
           imageUrl: "",
           email: "",
           gpa: "",
+          campusId: -1,
           redirect: false,
           redirectId: null,
           errors: {
@@ -25,6 +30,7 @@ class NewStudentContainer extends Component {
               shouldDisplayError: false
       }};
   }
+
 
   /* Handle Focus for UX */
   handleFocus = () => {
@@ -38,12 +44,23 @@ class NewStudentContainer extends Component {
       }
   }
 
-  /* Helper Function */
+  /* Helper Functions */
   isBlank(input) {
       if (input.trim() === "")
           return true
       return false
   }
+
+  handleSelect = event => {
+    this.setState({
+      campusId: event.target.value
+    })
+    // console.log(event.target.value)
+  }
+
+  // isValidEmailAddress(address) {
+  //   return ! address.match(/.+@.+/);
+  // }
 
   /* Input Validation */
   /*
@@ -57,47 +74,51 @@ class NewStudentContainer extends Component {
       let firstnameError = false;
       let lastnameError = false;
       let emailError = false;
+      let gpaError = false;
 
       switch(event.target.name) {
-          case "firstname":
-              if (this.isBlank(event.target.value)) {
-                  firstnameError = true;
-              }
-              if (this.isBlank(this.state.email)) {
-                  emailError = true;
-              }
-              if (this.isBlank(event.target.value)) {
-                  lastnameError = true;
-              }
-              break;
-            case "lastname":
-              if (this.isBlank(event.target.value)) {
-                  lastnameError = true;
-              }
-              if (this.isBlank(event.target.value)) {
-                  firstnameError = true;
-              }
-              if (this.isBlank(this.state.email))
-                  emailError = true;
-              break;
-          case "email":
-              if (this.isBlank(event.target.value))
-                  emailError = true;
-              if (this.isBlank(this.state.firstname))
-                  firstnameError = true;
-              if (this.isBlank(this.state.lastname))
-                  lastnameError = true;
-              break;
-          default:
-              return;
-      }
+        case "firstname":
+            if (this.isBlank(event.target.value)) {
+                firstnameError = true;
+            }
+            if (this.isBlank(this.state.lastname)) {
+                lastnameError = true;
+            }
+            if (this.isBlank(this.state.email)) {
+                emailError = true;
+            }
+            break;
+        case "lastname":
+          if (this.isBlank(event.target.value)) {
+              lastnameError = true;
+          }
+          if (this.isBlank(this.state.firstname)) {
+              firstnameError = true;
+            }
+          if (this.isBlank(this.state.email))
+              emailError = true;
+          break;
+        case "email":
+            if (this.isBlank(event.target.value))
+                emailError = true;
+            if (this.isBlank(this.state.lastname)) {
+                lastnameError = true;
+            }
+            if (this.isBlank(this.state.firstname)) {
+              firstnameError = true;
+            }
+            break;
+        default:
+            return;
+    }
 
       this.setState(prevstate => ({
           errors: {
               ...prevstate.errors,
               firstname: firstnameError,
               lastname: lastnameError,
-              email: emailError
+              email: emailError,
+              gpa: gpaError,
           }
       }));
   }
@@ -107,6 +128,7 @@ class NewStudentContainer extends Component {
       let firstnameError = false;
       let lastnameError = false;
       let emailError = false;
+      let gpaError = false;
 
       if (this.isBlank(this.state.firstname))
           firstnameError = true;
@@ -117,13 +139,17 @@ class NewStudentContainer extends Component {
       if (this.isBlank(this.state.email))
           emailError = true;
 
-      if (firstnameError || lastnameError || emailError) {
+      if (this.state.gpa < 0 || this.state.gpa > 4)
+          gpaError = true;
+
+      if (firstnameError || lastnameError || emailError || gpaError) {
           this.setState(prevstate => ({
               errors: {
                   ...prevstate.errors,
                   firstname: firstnameError,
                   lastname: lastnameError,
                   email: emailError,
+                  gpa: gpaError,
                   validate: true
               }
           }))
@@ -135,7 +161,8 @@ class NewStudentContainer extends Component {
                   ...prevstate.errors,
                   firstname: firstnameError,
                   lastname: lastnameError,
-                  email: emailError
+                  email: emailError,
+                  gpa: gpaError,
               }
           }));
           return true;
@@ -149,6 +176,12 @@ class NewStudentContainer extends Component {
       if (!this.validateForm()) {
           return;
       }
+      
+      let actualCampusId = null;
+
+      if (this.state.campusId >= 0){
+          actualCampusId = this.state.campusId;
+      }
 
       const shouldUseImageUrl = (this.state.imageUrl && this.state.imageUrl.trim() !== "") ? true : false;
 
@@ -156,6 +189,8 @@ class NewStudentContainer extends Component {
           firstname: this.state.firstname,
           lastname: this.state.lastname,
           email: this.state.email,
+          gpa: parseFloat(this.state.gpa),
+          campusId: actualCampusId,
           ...(shouldUseImageUrl && { imageUrl: this.state.imageUrl }),
       }
 
@@ -172,6 +207,7 @@ class NewStudentContainer extends Component {
               firstname: null,
               lasttname: null,
               email: null,
+              gpa: null,
               validate: null,
               shouldDisplayError: false
           },
@@ -193,90 +229,27 @@ class NewStudentContainer extends Component {
               handleChange = {this.handleChange}
               handleSubmit = {this.handleSubmit}
               handleFocus = {this.handleFocus}
+              handleSelect = {this.handleSelect}
               errors = {this.state.errors}
+              allCampuses = {this.props.allCampuses}
           />
+          
       )
   }
+}
+
+const mapState = (state) => {
+  return({
+    allCampuses: state.allCampuses
+  })
 }
 
 /* Map Dispatch to Props to Utilize Functional Thunks */
 const mapDispatch = (dispatch) => {
   return({
+      fetchAllCampuses: () => dispatch(fetchAllCampusesThunk()),
       addStudent: (student) => dispatch(addStudentThunk(student))
   })
 }
 
-export default connect(null, mapDispatch)(NewStudentContainer);
-
-// class NewStudentContainer extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//           firstname: "",
-//           lastname: "",
-//           campusId: null,
-//           imageUrl: "",
-//           email: "",
-//           gpa: "",
-//           redirect: false,
-//           redirectId: null
-//         };
-//     }
-
-//     handleChange = event => {
-//       this.setState({
-//         [event.target.name]: event.target.value
-//       });
-//     }
-
-//     handleSubmit = async event => {
-//         event.preventDefault();
-
-//         let student = {
-//             firstname: this.state.firstname,
-//             lastname: this.state.lastname,
-//             campusId: this.state.campusId,
-//             imageUrl: this.state.imageUrl,
-//             email: this.state.email,
-//             gpa: this.state.gpa,
-//         };
-
-//         let newStudent = await this.props.addStudent(student);
-//         console.log(newStudent);
-
-//         this.setState({
-//           firstname: "",
-//           lastname: "",
-//           campusId: null,
-//           imageUrl: "",
-//           email: "",
-//           gpa: null,
-//           redirect: true,
-//           redirectId: newStudent.id
-//         });
-//     }
-
-//     componentWillUnmount() {
-//         this.setState({redirect: false, redirectId: null});
-//     }
-
-//     render() {
-//         if(this.state.redirect) {
-//           return (<Redirect to={`/student/${this.state.redirectId}`}/>)
-//         }
-//         return (
-//           <NewStudentView
-//             handleChange = {this.handleChange}
-//             handleSubmit={this.handleSubmit}
-//           />
-//         );
-//     }
-// }
-
-// const mapDispatch = (dispatch) => {
-//     return({
-//         addStudent: (student) => dispatch(addStudentThunk(student)),
-//     })
-// }
-
-// export default connect(null, mapDispatch)(NewStudentContainer);
+export default connect(mapState, mapDispatch)(NewStudentContainer);
