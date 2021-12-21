@@ -16,3 +16,9 @@
     height: 21vh;
     object-fit: cover;
 }
+
+.noCampus-student-nav-button {
+    display: inline;
+    float: center;
+    /* justify-content: center; */
+}
