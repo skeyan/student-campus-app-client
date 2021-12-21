@@ -38,11 +38,15 @@ class NewStudentContainer extends Component {
       }
   }
 
-  /* Helper Function */
+  /* Helper Functions */
   isBlank(input) {
       if (input.trim() === "")
           return true
       return false
+  }
+
+  isValidEmailAddress(address) {
+    return ! address.match(/.+@.+/);
   }
 
   /* Input Validation */
@@ -59,40 +63,40 @@ class NewStudentContainer extends Component {
       let emailError = false;
 
       switch(event.target.name) {
-          case "firstname":
-              if (this.isBlank(event.target.value)) {
-                  firstnameError = true;
-              }
-              if (this.isBlank(event.target.value)) {
-                  lastnameError = true;
-              }
-              if (this.isBlank(this.state.email)) {
-                  emailError = true;
-              }
-              break;
-          case "lastname":
+        case "firstname":
             if (this.isBlank(event.target.value)) {
-              firstnameError = true;
+                firstnameError = true;
             }
-            if (this.isBlank(event.target.value)) {
+            if (this.isBlank(this.state.lastname)) {
                 lastnameError = true;
             }
-            if (this.isBlank(this.state.email))
+            if (this.isBlank(this.state.email)) {
                 emailError = true;
+            }
             break;
-          case "email":
-              if (this.isBlank(event.target.value))
-                  emailError = true;
-              if (this.isBlank(event.target.value)) {
-                  lastnameError = true;
-              }
-              if (this.isBlank(event.target.value)) {
-                firstnameError = true;
-              }
-              break;
-          default:
-              return;
-      }
+        case "lastname":
+          if (this.isBlank(event.target.value)) {
+              lastnameError = true;
+          }
+          if (this.isBlank(this.state.firstname)) {
+              firstnameError = true;
+            }
+          if (this.isBlank(this.state.email))
+              emailError = true;
+          break;
+        case "email":
+            if (this.isBlank(event.target.value))
+                emailError = true;
+            if (this.isBlank(this.state.lastname)) {
+                lastnameError = true;
+            }
+            if (this.isBlank(this.state.firstname)) {
+              firstnameError = true;
+            }
+            break;
+        default:
+            return;
+    }
 
       this.setState(prevstate => ({
           errors: {
@@ -158,6 +162,8 @@ class NewStudentContainer extends Component {
           firstname: this.state.firstname,
           lastname: this.state.lastname,
           email: this.state.email,
+          gpa: this.state.gpa,
+          campusId: this.state.campusId,
           ...(shouldUseImageUrl && { imageUrl: this.state.imageUrl }),
       }
 

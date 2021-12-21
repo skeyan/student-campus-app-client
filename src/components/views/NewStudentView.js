@@ -1,7 +1,10 @@
 import "../styles/NewStudent.css";
+import { useState } from 'react';
+
 
 const NewStudentView = (props) => {
   const {handleChange, handleSubmit, handleFocus, errors } = props;
+  const [gpaError, setGpaError]=useState(false)
 
   return (
 
@@ -29,6 +32,7 @@ const NewStudentView = (props) => {
                         <div className="valid-feedback">Looks good!</div>
                         <div className="invalid-feedback">This field is required.</div>
                     </div>
+
                     <div className="mb-3">
                         <label className="form-control-label" htmlFor="address">Email*</label>
                         <input name="email" required pattern=".*\S+.*" title="This field cannot be blank."
@@ -39,14 +43,19 @@ const NewStudentView = (props) => {
                         <div className="valid-feedback">Looks good!</div>
                         <div className="invalid-feedback">This field is required.</div>
                     </div>
-                    {/* <div className="mb-3">
-                    <label for="campuses">Campus Name</label>
-                    <select id="campuses" name="campusId">
-                      <option value="1">Hunter</option>
-                      <option value="2">MIT</option>
-                      <option value="3">Harvard</option>
-                    </select>
-                    </div> */}
+                    <div className="mb-3">
+                        <label className="form-label">Campus ID</label>
+                        <select name="campuses" id="selectList">
+                          <option value="1">Hunter</option>
+                          <option value="2">MIT</option>
+                          <option value="3">Harvard</option>
+                        </select>
+                        {/* <input name="campusId" className="form-control"
+                            onChange = {(e) => handleChange(e)}
+                            onFocus = {(e) => handleFocus(e)}
+                        /> */}
+                    </div>
+                    { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>}
                     <div className="mb-3">
                         <label className="form-label">Student Image Url</label>
                         <input name="imageUrl" className="form-control"
@@ -60,9 +69,14 @@ const NewStudentView = (props) => {
                         <input name="gpa" className="form-control"
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
-                        />
+                            onBlur={(e) => {
+                              if(e.target.value<0||e.target.value>4){
+                                setGpaError(true)
+                              }
+                            }}
+                            />
                     </div>
-                    { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>}
+                    {gpaError && <div className="error">GPA must be between 0.0 and 4.0</div>}
                     <button type="submit" className="btn btn-primary">Add Student</button>
                 </form>
             </div>

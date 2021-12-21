@@ -12,3 +12,9 @@
 .required-text {
     color: red;
 }
+
+.error {
+    font-size: .875em;
+    color: #dc3545;
+    margin-bottom: 10.0px;
+}

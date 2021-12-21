@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const AllStudentsView = (props) => {
-  const {students, deleteStudent} = props;
+  const {students} = props;
 
   if (!students.length) {
     return (
@@ -41,21 +41,7 @@ const AllStudentsView = (props) => {
       ))}
     </div>
   </div>
-  
-  // <div>
-  //   {students.map((student) => {
-  //     let name = student.firstname + " " + student.lastname;
-  //     return (
-  //       <div key={student.id}>
-  //       <Link to={`/student/${student.id}`}>
-  //         <h1>{name}</h1>
-  //       </Link>
-  //       <button onClick={() => deleteStudent(student.id)}>Delete</button>
-  //       </div>
-  //     );
-  //   }
-  //   )}
-  // </div>
+
   );
 };
 
