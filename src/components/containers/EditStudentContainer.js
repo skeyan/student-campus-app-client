@@ -167,6 +167,7 @@ handleSubmit = async event => {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
         email: this.state.email,
+        gpa: this.state.gpa,
         ...(shouldUseImageUrl && { imageUrl: this.state.imageUrl }),
         id: isEdit ? id : null,
     }
