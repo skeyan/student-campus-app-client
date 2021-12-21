@@ -45,9 +45,9 @@ class NewStudentContainer extends Component {
       return false
   }
 
-  isValidEmailAddress(address) {
-    return ! address.match(/.+@.+/);
-  }
+  // isValidEmailAddress(address) {
+  //   return ! address.match(/.+@.+/);
+  // }
 
   /* Input Validation */
   /*
@@ -61,6 +61,7 @@ class NewStudentContainer extends Component {
       let firstnameError = false;
       let lastnameError = false;
       let emailError = false;
+      let gpaError = false;
 
       switch(event.target.name) {
         case "firstname":
@@ -104,6 +105,7 @@ class NewStudentContainer extends Component {
               firstname: firstnameError,
               lastname: lastnameError,
               email: emailError,
+              gpa: gpaError,
           }
       }));
   }
@@ -113,6 +115,7 @@ class NewStudentContainer extends Component {
       let firstnameError = false;
       let lastnameError = false;
       let emailError = false;
+      let gpaError = false;
 
       if (this.isBlank(this.state.firstname))
           firstnameError = true;
@@ -123,13 +126,17 @@ class NewStudentContainer extends Component {
       if (this.isBlank(this.state.email))
           emailError = true;
 
-      if (firstnameError || lastnameError || emailError) {
+      if (this.state.gpa < 0 || this.state.gpa > 4)
+          gpaError = true;
+
+      if (firstnameError || lastnameError || emailError || gpaError) {
           this.setState(prevstate => ({
               errors: {
                   ...prevstate.errors,
                   firstname: firstnameError,
                   lastname: lastnameError,
                   email: emailError,
+                  gpa: gpaError,
                   validate: true
               }
           }))
@@ -142,6 +149,7 @@ class NewStudentContainer extends Component {
                   firstname: firstnameError,
                   lastname: lastnameError,
                   email: emailError,
+                  gpa: gpaError,
               }
           }));
           return true;
@@ -180,6 +188,7 @@ class NewStudentContainer extends Component {
               firstname: null,
               lasttname: null,
               email: null,
+              gpa: null,
               validate: null,
               shouldDisplayError: false
           },

@@ -4,7 +4,10 @@ import { useState } from 'react';
 
 const NewStudentView = (props) => {
   const {handleChange, handleSubmit, handleFocus, errors } = props;
-  const [gpaError, setGpaError]=useState(false)
+  // console.log(this.campuses)
+  // let optionItems = allCampuses.map((campus) =>
+  //       <option key={campus}>{campus}</option>
+  //   );
 
   return (
 
@@ -34,7 +37,7 @@ const NewStudentView = (props) => {
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-control-label" htmlFor="address">Email*</label>
+                        <label className="form-control-label" htmlFor="email">Email*</label>
                         <input name="email" required pattern=".*\S+.*" title="This field cannot be blank."
                             className={"form-control " + (errors.shouldDisplayError ? (errors.email === false ? "is-valid" : "is-invalid") : "")}
                             onChange = {(e) => handleChange(e)}
@@ -46,16 +49,14 @@ const NewStudentView = (props) => {
                     <div className="mb-3">
                         <label className="form-label">Campus ID</label>
                         <select name="campuses" id="selectList">
-                          <option value="1">Hunter</option>
-                          <option value="2">MIT</option>
-                          <option value="3">Harvard</option>
+                        {/*   {optionItems} */}
                         </select>
                         {/* <input name="campusId" className="form-control"
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
                         /> */}
                     </div>
-                    { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>}
+                    {/* { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>} */}
                     <div className="mb-3">
                         <label className="form-label">Student Image Url</label>
                         <input name="imageUrl" className="form-control"
@@ -69,14 +70,9 @@ const NewStudentView = (props) => {
                         <input name="gpa" className="form-control"
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
-                            onBlur={(e) => {
-                              if(e.target.value<0||e.target.value>4){
-                                setGpaError(true)
-                              }
-                            }}
                             />
                     </div>
-                    {gpaError && <div className="error">GPA must be between 0.0 and 4.0</div>}
+                    { errors.validate && <p className="required-text">Can leave this field empty or enter a value between 0.0 and 4.0.</p>}
                     <button type="submit" className="btn btn-primary">Add Student</button>
                 </form>
             </div>
