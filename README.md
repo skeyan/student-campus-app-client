@@ -21,8 +21,8 @@ As a user, I can:
 - [X] delete a campus and related student info
 - [X] edit a campus and related student info
 - [X] navigate to view a single campus
-- [ ] navigate to view all students
-- [ ] navigate to view a single student
-- [ ] add a student
-- [ ] delete a student
-- [ ] edit a student
+- [X] navigate to view all students
+- [X] navigate to view a single student
+- [X] add a student
+- [X] delete a student
+- [X] edit a student
