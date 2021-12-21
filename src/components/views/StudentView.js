@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "../styles/Campus.css"
 
 const StudentView = (props) => {
   const { student, deleteStudent, editStudent} = props;
@@ -10,14 +11,14 @@ const StudentView = (props) => {
 
   const editHelper = (student) => {
     editStudent(student);
-    <Link to={`/student/${student.firstname+student.lastname}/edit`}></Link>
+    <Link to={`/student/${student.id}/edit`}></Link>
   }
 
   if (student.campus === null) {
     return (
     <div>
       <h2>{student.firstname + " " + student.lastname} is not enrolled at a campus</h2>
-      <Link className = "student-add-button" to={`/student/${student.firstname+student.lastname}/edit`}>
+      <Link className = "student-add-button" to={`/student/${student.id}/edit`}>
         <button type="button">Edit Student</button>
       </Link>
     </div>
@@ -42,7 +43,7 @@ const StudentView = (props) => {
 
         &nbsp;&nbsp;
 
-        <Link to={`/student/${student.firstname+student.lastname}/edit`}>
+        <Link to={`/student/${student.id}/edit`}>
         <button onClick={() => editHelper(student)}>Edit Student</button>
         </Link>
 
