@@ -27,7 +27,7 @@ const StudentView = (props) => {
       <img src={student.imageUrl} className="student-img-top" alt="student img" />
       <br></br>
       <h2>{student.firstname + " " + student.lastname} is not enrolled at a campus</h2>
-      <Link to={`/campus/${student.id}/edit`} className="noCampus-student-nav-button">
+      <Link to={`/student/${student.id}/edit`} className="noCampus-student-nav-button">
           <Button onClick={() => editHelper(student)}>
             <EditIcon />
           </Button>
@@ -54,7 +54,7 @@ const StudentView = (props) => {
           </Button>
       </Link>
 
-      <Link to={`/campus/${student.id}/edit`} className="student-nav-button">
+      <Link to={`/student/${student.id}/edit`} className="student-nav-button">
           <Button onClick={() => editHelper(student)}>
             <EditIcon />
           </Button>

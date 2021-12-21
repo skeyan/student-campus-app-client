@@ -39,6 +39,18 @@ const EditStudentView = (props) => {
                 </div>
 
                 <div className="mb-3">
+                        <label className="form-label">Campus ID</label>
+                        <select name="campuses" id="selectList">
+                        {/*   {optionItems} */}
+                        </select>
+                        {/* <input name="campusId" className="form-control"
+                            onChange = {(e) => handleChange(e)}
+                            onFocus = {(e) => handleFocus(e)}
+                        /> */}
+                    </div>
+                    {/* { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>} */}
+
+                <div className="mb-3">
                     <label className="form-label">Student Image Url</label>
                     <input name="imageUrl" className="form-control"
                         onChange = {(e) => handleChange(e)}
@@ -47,7 +59,7 @@ const EditStudentView = (props) => {
                     <div className="form-text">eg. https://site.com/student.png</div>
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">GPA</label>
+                    <label className="form-label">GPA (0.0 - 4.0)</label>
                     <input name="gpa" className="form-control"
                         onChange = {(e) => handleChange(e)}
                         onFocus = {(e) => handleFocus(e)}

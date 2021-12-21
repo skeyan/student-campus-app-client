@@ -64,6 +64,7 @@ class EditStudentContainer extends Component {
         let firstnameError = false;
         let lastnameError = false;
         let emailError = false;
+        let gpaError = false;
 
         switch (event.target.name) {
             case "firstname":
@@ -104,7 +105,8 @@ class EditStudentContainer extends Component {
                 ...prevstate.errors,
                 firstname: firstnameError,
                 lastname: lastnameError,
-                email: emailError
+                email: emailError,
+                gpa: gpaError,
             }
         }));
     }
@@ -114,6 +116,7 @@ class EditStudentContainer extends Component {
     let firstnameError = false;
     let lastnameError = false;
     let emailError = false;
+    let gpaError = false;
 
     if (this.isBlank(this.state.firstname))
         firstnameError = true;
@@ -124,13 +127,17 @@ class EditStudentContainer extends Component {
     if (this.isBlank(this.state.email))
         emailError = true;
 
-    if (firstnameError || lastnameError || emailError) {
+    if (this.state.gpa < 0 || this.state.gpa > 4)
+        gpaError = true;
+
+    if (firstnameError || lastnameError || emailError || gpaError) {
         this.setState(prevstate => ({
             errors: {
                 ...prevstate.errors,
                 firstname: firstnameError,
                 lastname: lastnameError,
                 email: emailError,
+                gpa: gpaError,
                 validate: true
             }
         }))
@@ -142,7 +149,8 @@ class EditStudentContainer extends Component {
                 ...prevstate.errors,
                 firstname: firstnameError,
                 lastname: lastnameError,
-                email: emailError
+                email: emailError,
+                gpa: gpaError,
             }
         }));
         return true;
@@ -168,6 +176,7 @@ handleSubmit = async event => {
         lastname: this.state.lastname,
         email: this.state.email,
         gpa: this.state.gpa,
+        campusId: this.state.campusId,
         ...(shouldUseImageUrl && { imageUrl: this.state.imageUrl }),
         id: isEdit ? id : null,
     }
@@ -185,6 +194,7 @@ handleSubmit = async event => {
             firstname: null,
             lasttname: null,
             email: null,
+            gpa:null,
             validate: null,
             shouldDisplayError: false
         },
