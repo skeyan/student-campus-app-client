@@ -1,7 +1,11 @@
 import "../styles/NewStudent.css";
 
 const EditStudentView = (props) => {
-    const { handleChange, handleSubmit, handleFocus, errors} = props;
+    const {handleSelect, handleChange, handleSubmit, handleFocus, errors} = props;
+    let optionItems = props.allCampuses.map((campus) =>
+
+        <option key={campus.id} value={campus.id}>{campus.name}</option>
+    );
     return(
         <div className="new-student-container">
         <div className="add-student-form-container border">
@@ -40,16 +44,16 @@ const EditStudentView = (props) => {
 
                 <div className="mb-3">
                         <label className="form-label">Campus ID</label>
-                        <select name="campuses" id="selectList">
-                        {/*   {optionItems} */}
-                        </select>
+                        <select name="campuses" id="selectList" onChange = {(e) => handleSelect(e)}>
+                          <option key="-1" value="-1">None</option>
+                          {optionItems}
+                       </select>
                         {/* <input name="campusId" className="form-control"
                             onChange = {(e) => handleChange(e)}
                             onFocus = {(e) => handleFocus(e)}
                         /> */}
                     </div>
                     {/* { errors.validate && <p className="required-text">Invalid inputs, please fix errors.</p>} */}
-
                 <div className="mb-3">
                     <label className="form-label">Student Image Url</label>
                     <input name="imageUrl" className="form-control"

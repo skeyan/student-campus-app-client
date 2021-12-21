@@ -4,12 +4,16 @@ import { Redirect } from 'react-router-dom';
 
 import { EditStudentView } from '../views';
 import {
+    fetchAllCampusesThunk,
     addStudentThunk,
     fetchStudentThunk,
     editStudentThunk
 } from '../../store/thunks';
 
 class EditStudentContainer extends Component {
+    componentDidMount() {
+        this.props.fetchAllCampuses();
+      } 
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +22,7 @@ class EditStudentContainer extends Component {
             imageUrl: "",
             email: "",
             gpa: "",
+            campusId: -1,
             redirect: false,
             redirectId: null,
             errors: {
@@ -51,6 +56,13 @@ class EditStudentContainer extends Component {
             return true
         return false
     }
+
+    handleSelect = event => {
+        this.setState({
+          campusId: event.target.value
+        })
+        // console.log(event.target.value)
+      }
 
     /* Input Validation */
     /*
@@ -168,6 +180,11 @@ handleSubmit = async event => {
     if (!this.validateForm()) {
         return;
     }
+    let actualCampusId = null;
+
+    if (this.state.campusId >= 0){
+        actualCampusId = this.state.campusId;
+    }
 
     const shouldUseImageUrl = (this.state.imageUrl && this.state.imageUrl.trim() !== "") ? true : false;
 
@@ -175,8 +192,8 @@ handleSubmit = async event => {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
         email: this.state.email,
-        gpa: this.state.gpa,
-        campusId: this.state.campusId,
+        gpa: parseFloat(this.state.gpa),
+        campusId: actualCampusId,
         ...(shouldUseImageUrl && { imageUrl: this.state.imageUrl }),
         id: isEdit ? id : null,
     }
@@ -217,20 +234,28 @@ render() {
             handleChange = {this.handleChange}
             handleSubmit = {this.handleSubmit}
             handleFocus = {this.handleFocus}
+            handleSelect = {this.handleSelect}
             errors = {this.state.errors}
+            allCampuses = {this.props.allCampuses}
         />
     )
 }
 
 }
+const mapState = (state) => {
+    return({
+      allCampuses: state.allCampuses
+    })
+  }
 
 
 const mapDispatch = (dispatch) => {
     return ({
         addStudent: (student) => dispatch(addStudentThunk(student)),
         fetchStudent: (studentId) => dispatch(fetchStudentThunk(studentId)),
-        editStudent: (student) => dispatch(editStudentThunk(student))
+        editStudent: (student) => dispatch(editStudentThunk(student)),
+        fetchAllCampuses: () => dispatch(fetchAllCampusesThunk())
     })
 }
 
-export default connect(null, mapDispatch)(EditStudentContainer);
+export default connect(mapState, mapDispatch)(EditStudentContainer);
