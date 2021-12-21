@@ -73,7 +73,7 @@ class EditStudentContainer extends Component {
                 if (this.isBlank(this.state.email)) {
                     emailError = true;
                 }
-                if (this.isBlank(event.target.value)) {
+                if (this.isBlank(this.state.lastname)) {
                     lastnameError = true;
                 }
                 break;
@@ -81,7 +81,7 @@ class EditStudentContainer extends Component {
                 if (this.isBlank(event.target.value)) {
                     lastnameError = true;
                 }
-                if (this.isBlank(event.target.value)) {
+                if (this.isBlank(this.state.firstname)) {
                     firstnameError = true;
                 }
                 if (this.isBlank(this.state.email))
