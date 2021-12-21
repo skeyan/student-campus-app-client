@@ -8,6 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 const AllCampusesView = (props) => {
 
   if (!props.allCampuses.length || props.allCampuses.length <= 0) {
+    console.log(props)
     return (
       <div className="container">
         <Link className="campus-add-button" to={`/newcampus`}>
